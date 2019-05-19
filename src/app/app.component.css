@@ -1,0 +1,12 @@
+.force-to-the-bottom {
+    margin-top: 90vh;
+}
+
+.ui-timepicker-viewport {
+  width: 75px !important;
+}
+
+ul.ui-menu-item {
+  width: 65px !important;
+}
+  

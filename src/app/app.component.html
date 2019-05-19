@@ -1,0 +1,244 @@
+<!-- main app container -->
+<!-- main app container -->
+<div class="jumbotron">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-12 col-sm-12">
+				<h3>Schedule a new event</h3>
+				<form name="form" (ngSubmit)="f.form.valid && onSubmit()" #f="ngForm" novalidate>
+					<div class="form-group">
+						<label for="eventTitle" class="col-form-label col-form-label-lg">Event Title <span class="required">*</span></label>
+                        <input type="text" class="form-control" name="eventTitle" [(ngModel)]="model.eventTitle" #eventTitle="ngModel" [ngClass]="{ 'is-invalid': f.submitted && eventTitle.invalid }" required />
+                        <div *ngIf="f.submitted && eventTitle.invalid" class="alert alert-danger">
+                            <div *ngIf="eventTitle.errors.required">Event Title is required</div>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <ngb-timepicker name="timepicker" [(ngModel)]="time" #timepicker="ngModel" ></ngb-timepicker>
+                    </div> -->
+
+                    
+                    <!-- <div class="form-group">
+                            <input [owlDateTime]="dt2" placeholder="Date Time">
+                            <span [owlDateTimeTrigger]="dt2"><i class="fa fa-calendar"></i></span>
+                            <owl-date-time #dt2></owl-date-time>
+                        <!-- <input [owlDateTimeTrigger]="dt4" [owlDateTime]="dt4">
+                        <owl-date-time [pickerType]="'timer'" #dt4></owl-date-time> 
+                    </div> -->
+
+                    <div class="form-row">
+                        <div class="form-group col-md-6">
+                            <label for="timeZone" class="col-form-label col-form-label-lg">Time Zone <span class="required">*</span></label>
+                            <select class="form-control" id="timeZone" name="timeZone" [(ngModel)]="model.timeZone" #timeZone="ngModel" [ngClass]="{ 'is-invalid': f.submitted && timeZone.invalid }" required>
+                                <option>IST</option>
+                                <option>PST</option>
+                                <option>EST</option>
+                                <option>CST</option>
+                                <option>GMT</option>
+                              </select>
+                            <div *ngIf="f.submitted && timeZone.invalid" class="alert alert-danger">
+                                <div *ngIf="timeZone.errors.required">Time Zone is required</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3">
+                            <label for="runWindowStart" class="col-form-label col-form-label-lg">Run Window</label>
+                            <input type="time" class="form-control" name="runWindowStart" [(ngModel)]="model.runWindowStart" #runWindowStart="ngModel" [ngClass]="{ 'is-invalid': f.submitted && runWindowStart.invalid }" required />
+                            <div *ngIf="f.submitted && runWindowStart.invalid" class="alert alert-danger">
+                                <div *ngIf="runWindowStart.errors.required">Please menion the Event start time</div>
+                            </div>
+                        </div>
+                        <div class="form-group col-md-3 mt-4">
+                            <label for="runWindowEnd" class="col-form-label col-form-label-lg"></label>
+                            <input type="time" class="form-control" name="runWindowEnd" [(ngModel)]="model.runWindowEnd" #runWindowEnd="ngModel" [ngClass]="{ 'is-invalid': f.submitted && runWindowEnd.invalid }" required />
+                            <div *ngIf="f.submitted && runWindowEnd.invalid" class="alert alert-danger">
+                                <div *ngIf="runWindowEnd.errors.required">Please menion the Event end time</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="weeks" class="col-form-label col-form-label-lg">Select days</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="all" value="all" name="allDays" [(ngModel)]="model.allDays" #allDays="ngModel" [ngClass]="{ 'is-invalid': f.submitted && allDays.invalid }" (change)="checkValue(model.allDays?'A':'B')">
+                            <label class="form-check-label" for="all">All</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sun" value="sun" name="sun" [(ngModel)]="model.sun" #sun="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sun.invalid }" (change)="checkValue(model.sun?'A':'B')">
+                            <label class="form-check-label" for="sun">Sun</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="mon" value="mon" name="mon" [(ngModel)]="model.mon" #mon="ngModel" [ngClass]="{ 'is-invalid': f.submitted && mon.invalid }" (change)="checkValue(model.mon?'A':'B')">
+                            <label class="form-check-label" for="mon">Mon</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="tue" value="tue" name="tue" [(ngModel)]="model.tue" #tue="ngModel" [ngClass]="{ 'is-invalid': f.submitted && tue.invalid }" (change)="checkValue(model.tue?'A':'B')">
+                            <label class="form-check-label" for="tue">Tue</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="wed" value="wed" name="wed" [(ngModel)]="model.wed" #wed="ngModel" [ngClass]="{ 'is-invalid': f.submitted && wed.invalid }" (change)="checkValue(model.wed?'A':'B')">
+                            <label class="form-check-label" for="wed">Wed</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="thu" value="thu" name="thu" [(ngModel)]="model.thu" #thu="ngModel" [ngClass]="{ 'is-invalid': f.submitted && thu.invalid }" (change)="checkValue(model.thu?'A':'B')">
+                            <label class="form-check-label" for="thu">Thu</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="fri" value="fri" name="fri" [(ngModel)]="model.fri" #fri="ngModel" [ngClass]="{ 'is-invalid': f.submitted && fri.invalid }" (change)="checkValue(model.fri?'A':'B')">
+                            <label class="form-check-label" for="fri">Fri</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="sat" value="sat" name="sat" [(ngModel)]="model.sat" #sat="ngModel" [ngClass]="{ 'is-invalid': f.submitted && sat.invalid }" (change)="checkValue(model.sat?'A':'B')">
+                            <label class="form-check-label" for="sat">Sat</label>
+                        </div>
+                        <!-- <div *ngIf="f.submitted && (allDays.invalid && sun.invalid && mon.invalid)" class="invalid-feedback">
+                            <div *ngIf="(allDays.errors.required && sun.errors.required && mon.errors.required)">Select day's is required</div>
+                        </div> -->
+                        <div *ngIf="errorCheck.isErrorCheck" class="alert alert-danger">
+                            {{ errorCheck.errorMessageCheck }}
+                         </div>
+                    </div>
+
+                    <!-- <div class="form-group">
+                        <label for="addGuests" class="col-form-label col-form-label-lg">Add guests <span class="required">*</span></label>
+                        <input type="text" class="form-control" name="addGuests" [(ngModel)]="model.addGuests" pattern="^((\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*)\s*[,]{0,1}\s*)+$" #addGuests="ngModel" [ngClass]="{ 'is-invalid': f.submitted && addGuests.invalid }" required />
+                        <div *ngIf="f.submitted && addGuests.invalid" class="alert alert-danger">
+                            <div *ngIf="addGuests.errors.required">Add guest's are required</div>
+                            <div *ngIf="addGuests.errors.email">Email must be a valid email address</div>
+                            <div *ngIf="addGuests.errors.emailvalidator">Email not valid.</div>
+                            <div *ngIf="addGuests.errors.pattern">Please check entered email address's and one of the Email is not valid.</div>
+                        </div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="addGuests" class="col-form-label col-form-label-lg">Add guests <span class="required">*</span></label>
+                        <tag-input [(ngModel)]='emails' 
+                            #tagInput
+                            name="emails" 
+                            #email="ngModel" 
+                            [errorMessages]="errorMessages"
+                            [validators]="validators"
+                            [separatorKeyCodes]="[32,188,186,13,9]"
+                            [placeholder]="'Add email'" 
+                            [secondaryPlaceholder]="'Enter email address(es)'" 
+                            [clearOnBlur]="true" 
+                            [addOnPaste]="true"
+                            [addOnBlur]="true"
+                            [pasteSplitPattern]="splitPattern"
+                            [onAdding]="onAddedFunc" 
+                            theme='bootstrap' 
+                            required >
+                        </tag-input>    <!-- [editable]='true' (onTagEdited)="onTagEdited($event)"  -->
+                    </div>
+
+                    <div class="form-group">
+                        <label for="weeks" class="col-form-label col-form-label-lg">Guests can</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="modifyEvent" value="modifyEvent" name="modifyEvent" [(ngModel)]="model.modifyEvent" #modifyEvent="ngModel">
+                            <label class="form-check-label" for="modifyEvent">Modify event</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="inviteOhers" value="inviteOhers" name="inviteOhers" [(ngModel)]="model.inviteOhers" #inviteOhers="ngModel">
+                            <label class="form-check-label" for="inviteOhers">Invite others</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="checkbox" id="seeGuestList" value="seeGuestList" name="seeGuestList" [(ngModel)]="model.seeGuestList" #seeGuestList="ngModel">
+                            <label class="form-check-label" for="seeGuestList">See guest list</label>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label for="weeks" class="col-form-label col-form-label-lg">Notification type</label>
+                        <br>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="emailNotification" id="emailNotification" value="emailNotification" [(ngModel)]="model.NotificationType" #NotificationType="ngModel">
+                            <label class="form-check-label" for="emailNotification">Email notification</label>
+                        </div>
+                        <div class="form-check form-check-inline">
+                            <input class="form-check-input" type="radio" name="smsNotification" id="smsNotification" value="smsNotification" [(ngModel)]="model.NotificationType" #NotificationType="ngModel">
+                            <label class="form-check-label pr-2" for="smsNotification">SMS notification</label>
+                            <!-- <i class="fas fa-question-circle" aria-hidden="true" placement="right"
+                            ngbPopover="Vivamus sagittis lacus vel augue laoreet rutrum faucibus." popoverTitle="Popover on right"data-toggle="popover" data-placement="right" title="To activate the SMS notfications you need to update your details with your contactt numer." data-content="To activate the SMS notfications you need to update your details with your contactt numer."></i> -->
+                            <button type="button" placement="right" style="margin:0px;padding:0px;display: flex;border: none;"
+                                    ngbPopover="To activate the SMS notfications you need to update your details with your contact numer." data-toggle="popover" data-placement="right" title="To activate the SMS notfications you need to update your details with your contactt numer.">
+                                    <i class="fas fa-question-circle" aria-hidden="true" ></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- <div class="form-group">
+                        <label for="notificationStartTimes" class="col-form-label col-form-label-lg">Notification start times <span class="required">*</span></label>
+                        <input type="time" class="form-control" name="notificationStartTimes" id="notificationStartTimes" min="f.model.runWindowStart" [(ngModel)]="model.notificationStartTimes" #notificationStartTimes="ngModel" [ngClass]="{ 'is-invalid': f.submitted && notificationStartTimes.invalid }" required (blur)="compareTimes()" />
+                        <div *ngIf="f.submitted && notificationStartTimes.invalid" class="alert alert-danger">
+                            <div *ngIf="notificationStartTimes.errors.required">Please enter notification start times</div>
+                        </div>
+                        <div *ngIf="error.isError" class="alert alert-danger">
+                            {{ error.errorMessage }}
+                         </div>
+                    </div> -->
+
+                    <div class="form-group">
+                        <label for="notificationStartTimes" class="col-form-label col-form-label-lg">Notification start times <span class="required">*</span></label>
+                        <tag-input 
+                            name="notificationStartTimes"
+                            [(ngModel)]="model.item"
+                            [onlyFromAutocomplete]="true" 
+                            #notificationStartTimes="ngModel" 
+                            [ngClass]="{ 'is-invalid': f.submitted && notificationStartTimes.invalid }" 
+                            required
+                            [editable]='true'
+                            [placeholder]="'Add Time'"
+                            [secondaryPlaceholder]="'Add Time'"
+                            (onBlur)="compareTimes()"
+                            (onSelect)="showTimePicker($event)"
+                            theme='bootstrap'
+                            style="background-color: #e9ecef;">
+                                <tag-input-dropdown
+                                    [autocompleteItems]="items"
+                                    [appendToBody]="false"
+                                    [showDropdownIfEmpty]="true"
+                                    [dynamicUpdate]="true">
+                                </tag-input-dropdown>
+                        </tag-input>    <!-- [autocompleteObservable]="requestAutocompleteItemsFake"> (onRemove)="checkTimeValues($event)" -->
+                        <!-- <ngx-material-timepicker #picker></ngx-material-timepicker> <input [ngxTimepicker]="picker"> -->
+                        <!-- <tag-input [(ngModel)]='notificationStartTimes' 
+                            #tagInput2
+                            name="notificationStartTimes" 
+                            #time="ngModel" 
+                            [errorMessages]="errorMessages"
+                            [validators]="validators"
+                            [separatorKeyCodes]="[32,188,186,13,9]"
+                            [placeholder]="'Add Time'" 
+                            [secondaryPlaceholder]="'Enter time address(es)'" 
+                            [clearOnBlur]="true" 
+                            [addOnPaste]="true"
+                            [addOnBlur]="true"
+                            [pasteSplitPattern]="splitPattern"
+                            [onAdding]="onAddedFunc2" 
+                            (onSelect)="showTimePicker($event)"
+                            theme='bootstrap' 
+                            required >
+                        </tag-input> -->
+                        <div *ngIf="error.isError" class="alert alert-danger">
+                            {{ error.errorMessage }}
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="tmessage" class="col-form-label col-form-label-lg">Message <span class="required">*</span></label>
+                        <textarea class="form-control" name="tmessage" [(ngModel)]="model.tmessage" #tmessage="ngModel" [ngClass]="{ 'is-invalid': f.submitted && tmessage.invalid }" required></textarea>
+                        <div *ngIf="f.submitted && tmessage.invalid" class="alert alert-danger">
+                            <div *ngIf="tmessage.errors.required">Message is required</div>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group float-right">
+                        <button class="btn btn-secondary mr-2" (click)="reset()">Cancel</button>
+                        <button [disabled]="f.pristine || f.invalid || isDisabled" class="btn btn-primary">Save Event</button>   <!-- [disabled]="f.pristine || f.invalid" -->
+                    </div>
+                    {{f.values | json}}
+                </form>
+               
+            </div>
+        </div>
+    </div>
+    {{f.values | json}}
+</div>
